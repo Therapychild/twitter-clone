@@ -24,6 +24,14 @@
 		<div class="feed" id="feed">
 			<!-- Tweets here!! -->
 		</div>
+		<div id="reply-dialog-container" class="hidden">
+			<dialog id="reply-dialog" open>
+				<button id="close-dialog-btn">X</button>
+				<textarea id="reply-dialog-input" placeholder="Your reply goes here!"></textarea>
+				<div id="error" class="error hidden">Please enter a reply.</div>
+				<button id="submit-btn" data-submit>Submit</button>
+			</dialog>
+		</div>
 	</main>
 	<script src="index.js" type="module"></script>
 </body>

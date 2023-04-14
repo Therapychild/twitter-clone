@@ -29,7 +29,15 @@ i{
   color: limegreen;
 }
 
+.replied {
+    color: blue;
+}
+
 /* layout */
+
+main {
+    position: relative;
+}
 
 main, header{
     width: 290px;
@@ -118,8 +126,47 @@ button{
     line-height: 20px;
 }
 
-/* images */
+#reply-dialog-container {
+    z-index: 100;
+    position: fixed;
+    background: rgba(0, 0, 0, .9);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    box-sizing: border-box;
+}
 
+dialog {
+    position: absolute;
+    top: 2rem;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    gap: 1rem;
+}
+
+#close-dialog-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    background-color: white;
+    color: red;
+    border: 1px red solid;
+    border-radius: 0;
+    margin-left: auto;
+    padding: .25rem .5rem;
+}
+
+#reply-dialog-input {
+    border: 1px solid lightgrey;
+    width: auto;
+    margin: 0;
+}
+
+/* images */
 .profile-pic{
     border: 1px solid lightgray;
     border-radius: 50%;
@@ -129,4 +176,8 @@ button{
 /* utility */
 .hidden{
     display: none;
+}
+
+.error {
+    color: red;
 }
