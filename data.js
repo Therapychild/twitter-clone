@@ -1,4 +1,4 @@
-export const tweetsData = [
+const tweetsData = [
     {
         handle: `@TrollBot66756542 💎`,
         profilePic: `images/troll.jpg`,
@@ -58,4 +58,14 @@ export const tweetsData = [
         isReplied: false,
         uuid: '8hy671sff-c0f5-4545-9c4b-1237gyys45',
     },
-]
+];
+
+// Stretch goal #2, add data to local storage.
+
+// Uncomment line below to reset data for testing;
+// window.localStorage.removeItem("tweetsData");
+
+// Only set the base data if it does not exist.
+if (!window.localStorage.getItem("tweetsData")) {
+    window.localStorage.setItem("tweetsData", JSON.stringify(tweetsData));
+}

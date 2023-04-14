@@ -145,6 +145,7 @@ dialog {
     flex-direction: column;
     align-content: center;
     gap: 1rem;
+    max-width: 290px;
 }
 
 #close-dialog-btn {

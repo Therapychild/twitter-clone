@@ -1,10 +1,11 @@
-import { tweetsData } from './data.js'
+// import { tweetsData } from './data.js'
 import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
 
 const myHandle = "TheraypChild";
 const replyDialogContainer = document.getElementById(`reply-dialog-container`);
 const replyInput = document.getElementById('reply-dialog-input');
 const errorMessage = document.getElementById('error');
+let tweetsData = JSON.parse(window.localStorage.getItem("tweetsData"));
 
 // Click Event listener for entire document.
 document.addEventListener('click', function (e) {
@@ -41,32 +42,33 @@ replyInput.addEventListener('input', event => {
 // functions called by Event listener. 
 function handleLikeClick(tweetId) {
     const targetTweetObj = tweetsData.filter(function (tweet) {
-        return tweet.uuid === tweetId
+        return tweet.uuid === tweetId;
     })[0]
 
     if (targetTweetObj.isLiked) {
-        targetTweetObj.likes--
+        targetTweetObj.likes--;
     }
     else {
-        targetTweetObj.likes++
+        targetTweetObj.likes++;
     }
-    targetTweetObj.isLiked = !targetTweetObj.isLiked
-    render()
-
+    targetTweetObj.isLiked = !targetTweetObj.isLiked;
+    setData(tweetsData);
+    render();
 }
 
 function handleRetweetClick(tweetId) {
     const targetTweetObj = tweetsData.filter(function (tweet) {
-        return tweet.uuid === tweetId
+        return tweet.uuid === tweetId;
     })[0]
 
     if (targetTweetObj.isRetweeted) {
-        targetTweetObj.retweets--
+        targetTweetObj.retweets--;
     }
     else {
-        targetTweetObj.retweets++
+        targetTweetObj.retweets++;
     }
-    targetTweetObj.isRetweeted = !targetTweetObj.isRetweeted
+    targetTweetObj.isRetweeted = !targetTweetObj.isRetweeted;
+    setData(tweetsData);
     render()
 }
 
@@ -83,12 +85,18 @@ function handleMyReplyClick(tweetId) {
         return tweet.uuid === tweetId;
     })[0]
 
+    // Prevent multiple replies from user.
+    if (targetTweetObj.isReplied) {
+        alert("You have already replied to this tweet!");
+        return;
+    }
     // Set the isReplied value
     targetTweetObj.isReplied = !targetTweetObj.isReplied;
 
     // Open the reply modal
     replyDialogContainer.classList.remove('hidden');
     repliedTweet = targetTweetObj;
+    setData(tweetsData);
     render();
 }
 
@@ -104,6 +112,7 @@ function handleSubmit() {
             tweetText: replyInput.value,
         })
 
+        setData(tweetsData);
         handleCloseDialog(false);
     }
     else {
@@ -122,6 +131,7 @@ function handleCloseDialog(cancel = true) {
     if (cancel) {
         targetTweetObj.isReplied = !targetTweetObj.isReplied;
     }
+    setData(tweetsData);
     repliedTweet = {};
 
     render()
@@ -148,6 +158,10 @@ function handleTweetBtnClick(tweetId) {
     }
 }
 
+// Update data in local storage.
+function setData(data) {
+    window.localStorage.setItem("tweetsData", JSON.stringify(data));
+}
 
 
 function getFeedHtml() {
@@ -187,7 +201,6 @@ function getFeedHtml() {
                 `
             })
         }
-
 
         feedHtml += `
             <div class="tweet">
@@ -239,4 +252,3 @@ function render() {
 }
 
 render()
-
